@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+    <!-- JavaScript and HTML must be in separate files for security. -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jqXMLUtils.js"></script>
+    <script src="js/jquery.hoverIntent.min.js"></script>
+    <script src="js/tempo.min.js"></script>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+
+<div id="content">
+
+  <div class="navbar navbar-static">
+    <div class="navbar-inner">
+      <div class="container" style="width: auto;">
+        <a class="brand" href="#">Gmail App</a>
+        <div class="nav-collapse">
+          <a class="btn right" id="inbox"><i class="icon envelope"></i> Inbox <span class="count"></span></a>
+        </div><!-- /.nav-collapse -->
+      </div>
+    </div><!-- /navbar-inner -->
+  </div>
+
+  <!-- <dl id="emails"></dl> -->
+  <div id="email-holder">
+    <div id="template">
+      <a class="clearfix email-full" data-template data-src="{{link}}">
+        <span class="name span2 left">
+          {{author}}
+        </span>
+        <span class="email-content span6 right">
+          <section class="clearfix">
+            <span class="time span2 right">{{time | date 'MM-DD-YY'}}</span>
+            <span class="title span4 left">{{title}}</span>
+          </section>
+          <section class="summary">
+            <blockquote>
+              <p>{{summary}}</p>
+            </blockquote>
+          </section>
+        </span>
+      </a>
+    </div>
+     
+
+  
+  </div><!-- #email-holder -->
+
+</div>
+
+  </body>
+</html>

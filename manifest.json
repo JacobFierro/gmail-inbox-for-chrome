@@ -1,0 +1,13 @@
+{
+	"name" : "Jacob's Gmail Checker",
+	"version" : "1.0",
+	"description" : "My first chrome app",
+	"browser_action" : {
+		"popup" : "popup.html",
+		"default_icon" : "icon.png" // best at 19x19px
+		// "default_title" : "Happy day"
+	},
+	"permissions": [
+		"https://mail.google.com/", "tabs"
+	]
+}
