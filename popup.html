@@ -3,13 +3,7 @@
   <head>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-
-    <!-- JavaScript and HTML must be in separate files for security. -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jqXMLUtils.js"></script>
-    <script src="js/jquery.hoverIntent.min.js"></script>
-    <script src="js/tempo.min.js"></script>
-    <script src="popup.js"></script>
+  
   </head>
   <body>
 
@@ -26,32 +20,38 @@
     </div><!-- /navbar-inner -->
   </div>
 
-  <!-- <dl id="emails"></dl> -->
-  <div id="email-holder">
-    <div id="template">
-      <a class="clearfix email-full" data-template data-src="{{link}}">
+  <ul id="emails"></ul>
+
+  <script id="email-template" type="text/template">
+      <a class="clearfix email-full">
         <span class="name span2 left">
-          {{author}}
+          <%= author %>
         </span>
         <span class="email-content span6 right">
           <section class="clearfix">
-            <span class="time span2 right">{{time | date 'MM-DD-YY'}}</span>
-            <span class="title span4 left">{{title}}</span>
+            <span class="time span2 right"><%= time %></span>
+            <span class="title span4 left"><%= title %></span>
           </section>
           <section class="summary">
             <blockquote>
-              <p>{{summary}}</p>
+              <p><%= summary %></p>
             </blockquote>
           </section>
         </span>
       </a>
-    </div>
-     
-
-  
-  </div><!-- #email-holder -->
+  </script><!-- #email-template -->
 
 </div>
+  
 
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/underscore-min.js"></script>
+  <script src="js/lib/backbone.js"></script>
+
+  <script src="js/lib/jqXMLUtils.js"></script>
+  <script src="js/lib/jquery.hoverIntent.min.js"></script>
+
+  <script src="js/EmailList.js"></script>
+  <script src="popup.js"></script>
   </body>
 </html>
