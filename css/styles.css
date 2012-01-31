@@ -1,16 +1,36 @@
 body {
-	/*background-image: url(../img/dark_wood.png);*/
+	background-image: url(../img/cross_scratches.png);
 }
 
+.box-round {
+  -webkit-border-radius: 7px; 
+     -moz-border-radius: 7px; 
+          border-radius: 7px;   
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+
+}
 
 #content {
-	min-width: 470px;
+	min-width: 390px;
 	overflow: hidden;
 	padding: 10px 8px;
+
+}
+
+.span6 {
+  width: 300px;
+}
+
+#close {
+  margin-bottom: 10px;
 }
 
 nav {
 	margin-bottom: 10px;
+}
+
+#emails-wrapper {
+  
 }
 
 #emails {
@@ -25,74 +45,89 @@ nav {
 	color : rgba(208, 0, 24, 1);
 }
 
-a.email-full {
+a.email {
 	cursor: pointer;
 }
 
-a.email-full  {
+a.email  {
 	display: block;
 	padding: 10px 5px;
-	border-top: 1px #E5E5E5 solid;
+	/*border-top: 1px #E5E5E5 solid;*/
 	color: #404040;
 }
 
-a.email-full.last a {
+.email-body {
+  padding-right: 10px;
+}
+
+a.email.last a {
 	border-bottom: 1px #E5E5E5 solid;
 	
 }
 
-a.email-full:hover {
+a.email:hover {
 	text-decoration: none;
-	background: rgba(243, 243, 243, 0.85);
+	background: rgba(255,255,255,0.7);
 	color: #404040;
 }
 
-a.email-full span {
-	overflow: hidden;
-	white-space: nowrap;
+.gravitar {
+  padding: 4px;
 }
 
-a.email-full:hover span {
-	white-space: normal;
-}
-
-.name {
-	margin-right: 20px;
+.strong {
 	font-weight: bold;
 }
 
-
-.title {
-	font-weight: bold;
+.blue {
+  color: #08C;
 }
+
+.author : {
+  font-size: 1.3em; 
+  margin-bottom: 5px; 
+}
+
+
 
 .time {
-	text-align: right;
+  text-align: right;
+  font-size: 0.8em;
+}
 
+.summary, .title {
+  display: block;
+  width: 97%;
+  font-size: 0.87em;
 }
 
 .summary {
-	display: none;
-	padding: 15px 0 0 0;
+  /*display: none;*/
 }
 
-a.email-full:hover .summary {
+.title {
+  display: block;
+	font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-right: 8px;
+}
+
+a.email:hover .summary {
 	display: block;
 }
 
-.summary blockquote {
-	border-left-color: #08C;
-	margin-bottom: 12px;
+.separator {
+  display: block;
+  height: 1px;
+  background-color : rgba(0,0,0,0.1);
+  border-bottom: 1px solid #fff;
 }
 
-.summary p {
-	font-size: 100%;
+
+.muted {
+  color : #888888;
 }
-
-
-
-
-
 
 .right {
 	float: right;
@@ -100,6 +135,11 @@ a.email-full:hover .summary {
 
 .left {
 	float: left;
+}
+
+footer {
+  margin-top: 7px;
+padding-top: 0px;
 }
 
 

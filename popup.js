@@ -1,27 +1,5 @@
 var App = {};
 
-App.config = {
-    
-}
-
-
-
-
-// Identifier used to debug the possibility of multiple instances of the
-// extension making requests on behalf of a single user.
-var animationFrames = 36;
-var animationSpeed = 10; // ms
-var canvas;
-var canvasContext;
-var loggedInImage;
-var pollIntervalMin = 1000 * 60; // 1 minute
-var pollIntervalMax = 1000 * 60 * 60; // 1 hour
-var requestFailureCount = 0; // used for exponential backoff
-var requestTimeout = 1000 * 2; // 5 seconds
-var rotation = 0;
-var unreadCount = -1;
-var requestTimerId;
-
 /**
 * App Utilities
 */
@@ -44,6 +22,23 @@ App.Utilities.getFeedUrl = function() {
     // string and may be ignored/stripped.
     return App.Utilities.getGmailUrl() + "feed/atom?zx=" + encodeURIComponent( App.Utilities.instanceId );
 }
+
+App.Utilities.gravitar = function() {
+    function getHash(email) {
+        return md5( $.trim( email.toLowerCase() ) );
+    }
+
+    function getGravitar(email) {
+        var hash = getHash(email);
+        return 'http://www.gravatar.com/avatar/' + hash + '?s=' + App.config.gravitar.size + "&d=" + App.config.gravitar.default;
+    }
+
+    return {
+        getUrl : function(email) {
+            return getGravitar(email);
+        }
+    }
+}()
 
 App.dataStore = function() {
     var data = {},
@@ -76,10 +71,11 @@ App.dataStore = function() {
             var obj = {
                 'author' : email.author[0].name[0].Text,
                 // 'time' : getEmailTime(email.issued[0].Text),
-                'time' : email.issued[0].Text,
+                'time' : $.timeago(email.issued[0].Text),
                 'title' : email.title[0].Text,
                 'summary' : email.summary[0].Text,
-                'url' : email.link[0].href
+                'url' : email.link[0].href,
+                'gravitar' : App.Utilities.gravitar.getUrl( email.author[0].email[0].Text )
             };
 
             arr.push(obj);
@@ -119,17 +115,25 @@ App.Utilities.Navigator = function() {
     }
 }();
 
+App.Utilities.overflowHandler = function() {
+    
+    return {
+        enableLionbars : function(el) {
+            $(el).css({ 
+                'overflow': 'scroll',
+                'height' : '300px'
+            }).lionbars();
+        }
+    }
+}();
+
 
 
 
 /*******
 * MODEL
 *******/
-App.Model = Backbone.Model.extend({
-    defaults : {
-        gravitarUrl : "gravitar.png"
-    }
-});
+App.Model = Backbone.Model.extend({});
 
 
 /*******
@@ -186,19 +190,31 @@ App.EmailList = Backbone.View.extend({
             var view = new App.EmailRow({ model : model });
             $(this.el).append(view.render().el);
         }.bind(this));
+        this.handleOverflow();
+    },
+
+    handleOverflow : function() {
+        if ( this.collection.length > 3 ) {
+            App.config.overflowHandler(this.el);
+        }
     }
 });
 
 
 
 App.InboxButton = Backbone.View.extend({
-    el : $('#inbox'),
+    el : '#inbox',
     events : {
         'click' : 'goToInbox'
     },
 
     initialize : function() {
-        console.log('*inbox button: ', this);
+        this.options.dataStore.bind('reset', this.updateCount, this);
+    },
+
+    updateCount : function() {
+        var count = this.options.dataStore.getCount();
+        $(this.el).find('.count').text('( ' + count + ' )');
     },
 
     goToInbox : function() {
@@ -211,18 +227,36 @@ App.InboxButton = Backbone.View.extend({
 
 
 App.Main = Backbone.View.extend({
+    el : $('#content'),
+    events : {
+        'click .remove' : 'close'
+    },
+
     initialize : function() {
         this.initializeAppObjects();
-        App.data.fetch();
+        
     },
 
     initializeAppObjects : function() {
         this.emailCollection = new App.EmailCollection({ dataStore : App.data });
         this.emailList = new App.EmailList({ collection : this.emailCollection });
         this.inboxButton = new App.InboxButton({ dataStore : App.data });
+        App.data.fetch();
+    },
+
+    close : function() {
+        App.Utilities.Closer.close();
     }
 });
 
+
+App.config = {
+    gravitar : {
+        'size' : 40,
+        'default' : 'mm'
+    },
+    overflowHandler : App.Utilities.overflowHandler.enableLionbars
+}
 
 
 

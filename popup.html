@@ -3,42 +3,50 @@
   <head>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="js/lib/jquery.lionbars.css">
   
   </head>
   <body>
 
-<div id="content">
+<div id="content" class="box-round">
+  <div class="clearfix" id="close"><i class="icon remove right"></i></div>
 
-  <div class="navbar navbar-static">
+  <div class="navbar navbar-static clearfix">
     <div class="navbar-inner">
       <div class="container" style="width: auto;">
         <a class="brand" href="#">Gmail App</a>
         <div class="nav-collapse">
           <a class="btn right" id="inbox"><i class="icon envelope"></i> Inbox <span class="count"></span></a>
+          <!-- <a class="btn danger right" id="compose">Compose</a> -->
         </div><!-- /.nav-collapse -->
       </div>
     </div><!-- /navbar-inner -->
   </div>
 
-  <ul id="emails"></ul>
-
+  <div id="emails-wrapper">
+    <ul id="emails"></ul>
+  </div>
+  
   <script id="email-template" type="text/template">
-      <a class="clearfix email-full">
-        <span class="name span2 left">
-          <%= author %>
-        </span>
-        <span class="email-content span6 right">
-          <section class="clearfix">
-            <span class="time span2 right"><%= time %></span>
-            <span class="title span4 left"><%= title %></span>
-          </section>
-          <section class="summary">
-            <blockquote>
-              <p><%= summary %></p>
-            </blockquote>
-          </section>
-        </span>
-      </a>
+    <a class="clearfix email">
+
+      <div class="left span1 gravitar">
+        <img src="<%= gravitar %>" alt="Author's Gravitar" />
+      </div>
+
+      <div class="right span6 email-body">
+        <div class="clearfix space">
+          <time class="time right muted timeago"><%= time %></time>
+          <span class="strong blue author left"><%= author %></span>
+        </div>
+
+        <span class="title"><%= title %></span>
+        <span class="summary"><%= summary %></span>
+
+      </div>
+      
+    </a>
+    <div class="separator"></div>
   </script><!-- #email-template -->
 
 </div>
@@ -48,10 +56,12 @@
   <script src="js/lib/underscore-min.js"></script>
   <script src="js/lib/backbone.js"></script>
 
+  <script src="js/lib/jquery.lionbars.0.3.min.js"></script>
   <script src="js/lib/jqXMLUtils.js"></script>
   <script src="js/lib/jquery.hoverIntent.min.js"></script>
+  <script src="js/lib/md5.min.js"></script>
+  <script src="js/lib/jquery.timeago.js"></script>
 
-  <script src="js/EmailList.js"></script>
   <script src="popup.js"></script>
   </body>
 </html>
