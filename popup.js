@@ -191,6 +191,7 @@ App.EmailList = Backbone.View.extend({
             $(this.el).append(view.render().el);
         }.bind(this));
         this.handleOverflow();
+        $('#controls').height( $('body').height() ); //TODO move this
     },
 
     handleOverflow : function() {
@@ -205,7 +206,7 @@ App.EmailList = Backbone.View.extend({
 App.InboxButton = Backbone.View.extend({
     el : '#inbox',
     events : {
-        'click' : 'goToInbox'
+        // 'click' : 'goToInbox'
     },
 
     initialize : function() {
@@ -227,9 +228,9 @@ App.InboxButton = Backbone.View.extend({
 
 
 App.Main = Backbone.View.extend({
-    el : $('#content'),
+    el : $('#gmailer'),
     events : {
-        'click .remove' : 'close'
+        'click #close' : 'close'
     },
 
     initialize : function() {

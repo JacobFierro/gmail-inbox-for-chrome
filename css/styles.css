@@ -2,6 +2,35 @@ body {
 	background-image: url(../img/cross_scratches.png);
 }
 
+.wrap {
+  width : 560px;
+}
+
+.mask {
+  background: rgba(0,0,0,0.9);
+}
+
+.box-shadow {
+  box-shadow : 0 0px 5px rgba(0, 0, 0, 0.6);
+}
+
+#controls {
+  margin-right : -20px;
+}
+
+#inbox-header-wrap {
+  background: rgba(0,0,0,0.15);
+}
+
+#inbox-header-inner {
+  padding: 6px 12px 2px 9px;
+}
+
+#close:hover {
+  background: #B5362C;
+}
+
+
 .box-round {
   -webkit-border-radius: 7px; 
      -moz-border-radius: 7px; 
@@ -21,16 +50,8 @@ body {
   width: 300px;
 }
 
-#close {
-  margin-bottom: 10px;
-}
-
 nav {
 	margin-bottom: 10px;
-}
-
-#emails-wrapper {
-  
 }
 
 #emails {

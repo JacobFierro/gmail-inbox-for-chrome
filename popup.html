@@ -8,46 +8,64 @@
   </head>
   <body>
 
-<div id="content" class="box-round">
-  <div class="clearfix" id="close"><i class="icon remove right"></i></div>
+<div id="gmailer" class="wrap">
 
-  <div class="navbar navbar-static clearfix">
-    <div class="navbar-inner">
-      <div class="container" style="width: auto;">
-        <a class="brand" href="#">Gmail App</a>
-        <div class="nav-collapse">
-          <a class="btn right" id="inbox"><i class="icon envelope"></i> Inbox <span class="count"></span></a>
-          <!-- <a class="btn danger right" id="compose">Compose</a> -->
-        </div><!-- /.nav-collapse -->
-      </div>
-    </div><!-- /navbar-inner -->
-  </div>
+  <div class="row">
 
-  <div id="emails-wrapper">
-    <ul id="emails"></ul>
-  </div>
-  
-  <script id="email-template" type="text/template">
-    <a class="clearfix email">
 
-      <div class="left span1 gravitar">
-        <img src="<%= gravitar %>" alt="Author's Gravitar" />
-      </div>
 
-      <div class="right span6 email-body">
-        <div class="clearfix space">
-          <time class="time right muted timeago"><%= time %></time>
-          <span class="strong blue author left"><%= author %></span>
+
+    <div id="controls" class="span3 pull-left mask box-shadow">
+      new sidebar
+    </div>
+
+
+
+
+
+    <div id="inbox" class="span7 pull-right">
+
+        <div id="inbox-header-wrap" class="box-shadow">
+          <div id="inbox-header-inner" class="clearfix">
+            <span class="pull-left short-text"><i class="icon envelope"></i> Howdy, you have <span class="count"></span> unread emails</span>
+            <i id="close" class="icon remove pull-right"></i>
+          </div>
         </div>
 
-        <span class="title"><%= title %></span>
-        <span class="summary"><%= summary %></span>
 
-      </div>
-      
-    </a>
-    <div class="separator"></div>
-  </script><!-- #email-template -->
+        <ul id="emails"></ul>
+  
+        <script id="email-template" type="text/template">
+          <a class="clearfix email">
+            <div class="left span1 gravitar">
+              <img src="<%= gravitar %>" alt="Author's Gravitar" />
+            </div>
+            <div class="right span6 email-body">
+              <div class="clearfix space">
+                <time class="time right muted timeago"><%= time %></time>
+                <span class="strong blue author left"><%= author %></span>
+              </div>
+              <span class="title"><%= title %></span>
+              <span class="summary"><%= summary %></span>
+            </div>
+          </a>
+          <div class="separator"></div>
+        </script><!-- #email-template -->
+
+    </div>
+
+
+
+
+
+
+  </div><!-- .row -->
+
+
+
+  
+
+  
 
 </div>
   
