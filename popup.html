@@ -1,38 +1,27 @@
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="stylesheets/less/variables.less">
-    <link rel="stylesheet" type="text/css" href="stylesheets/less/bootstrap.less">
-    <link rel="stylesheet" type="text/css" href="stylesheets/less/accordion.less">
+    <link rel="stylesheet" type="text/css" href="stylesheets/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
     <link rel="stylesheet" type="text/css" href="js/lib/jquery.lionbars.css">
-  
-    <script src="js/lib/less-1.2.1.min.js"></script>
   </head>
   <body>
 
-<div id="gmailer" class="wrap">
+<div id="gmailer">
 
-  <div class="row">
-
-
-
-
-    <div id="controls" class="span3 pull-left mask box-shadow">
-      <a id="ctrl-inbox" class="btn"><i class="icon inbox"></i> Inbox</a>
-      <a id="ctrl-compose" class="btn danger"><i class="icon pencil"></i> Compose</a>
+    <div id="controls" class="mask box-shadow">
+      <div class="btn-group">
+        <button id="ctrl-inbox" class="btn pull-left"><i class="icon-inbox"></i> Inbox</button><br/>
+        <!-- <button id="ctrl-compose" class="btn danger pull-left"><i class="icon-pencil"></i> Compose</button> -->
+      </div>
     </div>
 
-
-
-
-
-    <div id="inbox" class="span7 pull-right">
+    <div id="inbox" class="span5 pull-right">
 
         <div id="inbox-header-wrap" class="box-shadow">
           <div id="inbox-header-inner" class="clearfix">
-            <span class="pull-left short-text"><i class="icon envelope"></i> Howdy, you have <span class="count"></span> unread emails</span>
-            <i id="close" class="icon remove pull-right"></i>
+            <span class="pull-left short-text"><i class="icon-envelope"></i> Howdy, you have <span class="count"></span> unread emails</span>
+            <i id="close" class="icon-remove pull-right"></i>
           </div>
         </div>
 
@@ -41,10 +30,10 @@
   
         <script id="email-template" type="text/template">
           <a class="clearfix email">
-            <div class="left span1 gravitar">
+            <div class="span1 gravitar">
               <img src="<%= gravitar %>" alt="Author's Gravitar" />
             </div>
-            <div class="right span6 email-body">
+            <div class="email-body">
               <div class="clearfix space">
                 <time class="time right muted timeago"><%= time %></time>
                 <span class="strong blue author left"><%= author %></span>
@@ -57,17 +46,6 @@
         </script><!-- #email-template -->
 
     </div>
-
-
-
-
-
-
-  </div><!-- .row -->
-
-
-
-  
 
   
 

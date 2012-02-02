@@ -191,7 +191,7 @@ App.EmailList = Backbone.View.extend({
             $(this.el).append(view.render().el);
         }.bind(this));
         this.handleOverflow();
-        $('#controls').height( $('body').height() ); //TODO move this
+        $('#controls').height( $('#inbox').height() ); //TODO move this
     },
 
     handleOverflow : function() {
