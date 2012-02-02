@@ -1,0 +1,172 @@
+body {
+	background-image: url(../img/cross_scratches.png);
+}
+
+.wrap {
+  width : 560px;
+}
+
+.mask {
+  background: rgba(0,0,0,0.9);
+}
+
+.box-shadow {
+  box-shadow : 0 0px 5px rgba(0, 0, 0, 0.6);
+}
+
+#controls {
+  margin-right : -20px;
+}
+
+#inbox-header-wrap {
+  background: rgba(0,0,0,0.15);
+}
+
+#inbox-header-inner {
+  padding: 6px 12px 2px 9px;
+}
+
+#close:hover {
+  background: #B5362C;
+}
+
+
+.box-round {
+  -webkit-border-radius: 7px; 
+     -moz-border-radius: 7px; 
+          border-radius: 7px;   
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+
+}
+
+#content {
+	min-width: 390px;
+	overflow: hidden;
+	padding: 10px 8px;
+
+}
+
+.span6 {
+  width: 300px;
+}
+
+nav {
+	margin-bottom: 10px;
+}
+
+#emails {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+.btn b {
+	font-weight: normal;
+	color : rgba(208, 0, 24, 1);
+}
+
+a.email {
+	cursor: pointer;
+}
+
+a.email  {
+	display: block;
+	padding: 10px 5px;
+	/*border-top: 1px #E5E5E5 solid;*/
+	color: #404040;
+}
+
+.email-body {
+  padding-right: 10px;
+}
+
+a.email.last a {
+	border-bottom: 1px #E5E5E5 solid;
+	
+}
+
+a.email:hover {
+	text-decoration: none;
+	background: rgba(255,255,255,0.7);
+	color: #404040;
+}
+
+.gravitar {
+  padding: 4px;
+}
+
+.strong {
+	font-weight: bold;
+}
+
+.blue {
+  color: #08C;
+}
+
+.author : {
+  font-size: 1.3em; 
+  margin-bottom: 5px; 
+}
+
+
+
+.time {
+  text-align: right;
+  font-size: 0.8em;
+}
+
+.summary, .title {
+  display: block;
+  width: 97%;
+  font-size: 0.87em;
+}
+
+.summary {
+  /*display: none;*/
+}
+
+.title {
+  display: block;
+	font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-right: 8px;
+}
+
+a.email:hover .summary {
+	display: block;
+}
+
+.separator {
+  display: block;
+  height: 1px;
+  background-color : rgba(0,0,0,0.1);
+  border-bottom: 1px solid #fff;
+}
+
+
+.muted {
+  color : #888888;
+}
+
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}
+
+footer {
+  margin-top: 7px;
+padding-top: 0px;
+}
+
+
+
+/* Contain floats: h5bp.com/q */
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+
