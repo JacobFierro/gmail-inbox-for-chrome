@@ -4,7 +4,7 @@ body {
   min-width: 485px;
 }
 
-#controls {
+#control-bar {
   width: 105px;
   float: left;
 }

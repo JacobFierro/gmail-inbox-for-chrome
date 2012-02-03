@@ -9,18 +9,21 @@
 
 <div id="gmailer">
 
-    <div id="controls" class="mask box-shadow">
+    <div id="control-bar" class="mask box-shadow">
       <div class="btn-group">
-        <button id="ctrl-inbox" class="btn pull-left"><i class="icon-inbox"></i> Inbox</button><br/>
-        <!-- <button id="ctrl-compose" class="btn danger pull-left"><i class="icon-pencil"></i> Compose</button> -->
+        <button id="inboxBtn" class="btn pull-left"><i class="icon-inbox"></i> Inbox</button><br/>
+        <button id="composeBtn" class="btn danger pull-left"><i class="icon-pencil"></i> Compose</button>
       </div>
     </div>
 
-    <div id="inbox" class="span5 pull-right">
+    <div id="inbox" class="span5 pull-right no-left">
 
         <div id="inbox-header-wrap" class="box-shadow">
           <div id="inbox-header-inner" class="clearfix">
-            <span class="pull-left short-text"><i class="icon-envelope"></i> Howdy, you have <span class="count"></span> unread emails</span>
+            <span class="pull-left short-text">
+              <i class="icon-envelope"></i> 
+              You've got GMAIL! <span class="count"></span> unread emails
+            </span>
             <i id="close" class="icon-remove pull-right"></i>
           </div>
         </div>
@@ -62,6 +65,8 @@
   <script src="js/lib/md5.min.js"></script>
   <script src="js/lib/jquery.timeago.js"></script>
 
+  <script src="js/Utilities.js"></script>
+  <script src="js/Navigator.js"></script>
   <script src="popup.js"></script>
   </body>
 </html>

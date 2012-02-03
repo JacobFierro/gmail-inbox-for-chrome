@@ -1,131 +1,9 @@
-var App = {};
+var App = App || {};
 
 /**
 * App Utilities
 */
 
-App.Utilities = {};
-
-App.Utilities.instanceId = 'gmc' + parseInt(Date.now() * Math.random(), 10);
-
-App.Utilities.getGmailUrl = function() {
-    var url = "https://mail.google.com/";
-    if (localStorage.customDomain)
-        url += localStorage.customDomain + "/";
-    else
-        url += "mail/"
-    return url;
-}
-
-App.Utilities.getFeedUrl = function() {
-    // "zx" is a Gmail query parameter that is expected to contain a random
-    // string and may be ignored/stripped.
-    return App.Utilities.getGmailUrl() + "feed/atom?zx=" + encodeURIComponent( App.Utilities.instanceId );
-}
-
-App.Utilities.gravitar = function() {
-    function getHash(email) {
-        return md5( $.trim( email.toLowerCase() ) );
-    }
-
-    function getGravitar(email) {
-        var hash = getHash(email);
-        return 'http://www.gravatar.com/avatar/' + hash + '?s=' + App.config.gravitar.size + "&d=" + App.config.gravitar.default;
-    }
-
-    return {
-        getUrl : function(email) {
-            return getGravitar(email);
-        }
-    }
-}()
-
-App.dataStore = function() {
-    var data = {},
-        emails = {},
-        count = 0;
-
-    function fetchData() {
-        var self = App.dataStore;
-        $.ajax({
-            type : "GET",
-            url : App.Utilities.getFeedUrl(),
-            dataType : "xml",
-            success : function(data, textStatus, jQxhr) {
-                var json = $.xmlToJSON(data);
-                data = json;
-                emails = parseEmailData(json.entry);
-                count = json.entry.length
-                self.trigger('reset');
-                // console.log('*success json: ', json , self);//, JSON.stringify(json));
-            },
-            error : function(jqXHR, textStatus, errorThrown) {
-                console.log('*error: ', jqXHR, textStatus, errorThrown);
-            }
-        });
-    }
-
-    function parseEmailData(json) {
-        var  arr = [];
-        $.each(json, function(index, email){
-            var obj = {
-                'author' : email.author[0].name[0].Text,
-                // 'time' : getEmailTime(email.issued[0].Text),
-                'time' : $.timeago(email.issued[0].Text),
-                'title' : email.title[0].Text,
-                'summary' : email.summary[0].Text,
-                'url' : email.link[0].href,
-                'gravitar' : App.Utilities.gravitar.getUrl( email.author[0].email[0].Text )
-            };
-
-            arr.push(obj);
-        }); 
-        return arr;
-    }
-
-    return {
-        fetch : function() {
-            fetchData();
-        },
-        getEmails : function() {
-            return emails;
-        },
-        getCount : function() {
-            return count;
-        },
-        getData : function() {
-            return data;
-        } 
-    }
-}();
-
-App.Utilities.Closer = function() {
-    return {
-        close : function() {
-            window.close();
-        }
-    }
-}();
-
-App.Utilities.Navigator = function() {
-    return {
-        newTab : function(url) {
-            chrome.tabs.create({ 'url' : url });
-        }
-    }
-}();
-
-App.Utilities.overflowHandler = function() {
-    
-    return {
-        enableLionbars : function(el) {
-            $(el).css({ 
-                'overflow': 'scroll',
-                'height' : '300px'
-            }).lionbars();
-        }
-    }
-}();
 
 
 
@@ -162,7 +40,7 @@ App.EmailRow = Backbone.View.extend({
     tagName : "li",
     template : _.template( $('#email-template').html() ),
     events : {
-        "click" : "clickHandler"
+        "click" : "requestNavigation"
     },
 
     render : function() {
@@ -170,9 +48,8 @@ App.EmailRow = Backbone.View.extend({
         return this;
     },
 
-    clickHandler : function() {
-        App.Utilities.Navigator.newTab( this.model.get('url') );
-        App.Utilities.Closer.close();
+    requestNavigation : function() {
+        this.trigger('navigation', this.model.get('url'));
     }
      
 });
@@ -188,39 +65,44 @@ App.EmailList = Backbone.View.extend({
         $(this.el).html('');
         this.collection.each(function(model){
             var view = new App.EmailRow({ model : model });
+            view.bind('navigation', this.navigateToEmail, this);
             $(this.el).append(view.render().el);
         }.bind(this));
+
         this.handleOverflow();
-        $('#controls').height( $('#inbox').height() ); //TODO move this
+        $('#control-bar').height( $('#inbox').height() ); //TODO move this
     },
 
     handleOverflow : function() {
         if ( this.collection.length > 3 ) {
             App.config.overflowHandler(this.el);
         }
+    },
+
+    navigateToEmail : function(url) {
+        this.options.navigator.openEmail(url);
     }
 });
 
 
 
-App.InboxButton = Backbone.View.extend({
-    el : '#inbox',
+App.ControlBar = Backbone.View.extend({
+    el : '#control-bar',
     events : {
-        // 'click' : 'goToInbox'
+        'click #inboxBtn' : 'goToInbox',
+        'click #composeBtn' : 'goToComposition'
     },
 
-    initialize : function() {
-        this.options.dataStore.bind('reset', this.updateCount, this);
-    },
-
-    updateCount : function() {
-        var count = this.options.dataStore.getCount();
-        $(this.el).find('.count').text('( ' + count + ' )');
-    },
+    initialize : function() {},
 
     goToInbox : function() {
-        App.Utilities.Navigator.newTab( App.Utilities.getGmailUrl() );
-        App.Utilities.Closer.close();
+        this.options.navigator.openInbox();
+        // App.Utilities.navigator.newTab( App.Utilities.getGmailUrl() );
+        // App.Utilities.Closer.close();
+    },
+
+    goToComposition : function() {
+        this.options.navigator.openComposition();
     }
 });
 
@@ -235,18 +117,18 @@ App.Main = Backbone.View.extend({
 
     initialize : function() {
         this.initializeAppObjects();
-        
     },
 
     initializeAppObjects : function() {
+        this.navigator = new App.config.navigator;
         this.emailCollection = new App.EmailCollection({ dataStore : App.data });
-        this.emailList = new App.EmailList({ collection : this.emailCollection });
-        this.inboxButton = new App.InboxButton({ dataStore : App.data });
-        App.data.fetch();
+        this.controlBar = new App.ControlBar({ navigator : this.navigator });
+        this.emailList = new App.EmailList({ collection : this.emailCollection, navigator : this.navigator });
+        App.data.fetch( this.navigator.getFeedUrl() );
     },
 
     close : function() {
-        App.Utilities.Closer.close();
+        App.Utilities.close();
     }
 });
 
@@ -256,6 +138,7 @@ App.config = {
         'size' : 40,
         'default' : 'mm'
     },
+    navigator : App.Navigator,
     overflowHandler : App.Utilities.overflowHandler.enableLionbars
 }
 
