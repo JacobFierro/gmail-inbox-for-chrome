@@ -1,12 +1,41 @@
 body {
-	background-image: url(../img/cross_scratches.png);
+	background-image: url(../img/noise.gif);
   height: 310px;
-  min-width: 485px;
+  min-width: 380px;
 }
 
 #control-bar {
   width: 105px;
+  height: 320px;
   float: left;
+}
+
+#header-wrapper {
+  background-color: #555;
+  padding-bottom: 3px;
+}
+
+#header {
+  padding: 0px 15px;
+  background: url(../img/grey_texture.png);
+  text-shadow: 1px 1px 1px #fff;
+}
+
+#header h1 {
+  font-size: 1em;
+  maring-bottom: 0px;
+  font-weight: normal;
+  /*text-transform: uppercase;*/
+  color: #555;
+  background: url(../img/logo.png) left center no-repeat;
+  padding-left: 30px;
+}
+
+#header h1 em {
+  font-size: 1.4em;
+  font-style: normal;
+  font-weight: bold;
+  color: #333;
 }
 
 .no-left {
