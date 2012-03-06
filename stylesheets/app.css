@@ -10,33 +10,55 @@ body {
   float: left;
 }
 
-#header-wrapper {
-  background-color: #555;
-  padding-bottom: 3px;
-}
-
 #header {
-  padding: 0px 15px;
   background: url(../img/grey_texture.png);
   text-shadow: 1px 1px 1px #fff;
+  border-bottom: 3px solid #555;
 }
 
-#header h1 {
-  font-size: 1em;
-  maring-bottom: 0px;
+#header .brand {
+  float: left;
+  margin: 10px 0 0 20px;
+  padding-left: 30px;
+  font-size: 1.4em;
   font-weight: normal;
-  /*text-transform: uppercase;*/
   color: #555;
   background: url(../img/logo.png) left center no-repeat;
-  padding-left: 30px;
 }
 
-#header h1 em {
-  font-size: 1.4em;
+#header .brand em {
   font-style: normal;
   font-weight: bold;
   color: #333;
 }
+
+#header .exit {
+  position: relative;
+  float: right;
+  height: 40px;
+  width: 40px;
+}
+
+#header .exit:before {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 40px;
+  background-color : rgba(0,0,0,0.2);
+  border-right: 1px solid rgba(255,255,255,0.7);
+}
+
+#header .exit span {
+  position: absolute;
+  top: 13px;
+  left: 15px;
+}
+
+#header .exit:hover {
+  background-color: rgba(75,75,75,0.1);
+}
+
+
 
 .no-left {
   margin-left : 0px;

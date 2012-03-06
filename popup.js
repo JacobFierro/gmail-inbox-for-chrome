@@ -111,7 +111,7 @@ App.ControlBar = Backbone.View.extend({
 App.Main = Backbone.View.extend({
     el : $('#gmailer'),
     events : {
-        'click #close' : 'close'
+        'click .exit' : 'close'
     },
 
     initialize : function() {
