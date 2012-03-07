@@ -14,22 +14,27 @@ body {
   background: url(../img/grey_texture.png);
   text-shadow: 1px 1px 1px #fff;
   border-bottom: 3px solid #555;
+  padding: 0 0 0 15px;
+}
+
+#header .logo {
+  float: left;
+  padding: 9px 0 0 0;
 }
 
 #header .brand {
   float: left;
-  margin: 10px 0 0 20px;
-  padding-left: 30px;
+  margin: 10px 0 0 0;
   font-size: 1.4em;
   font-weight: normal;
-  color: #555;
-  background: url(../img/logo.png) left center no-repeat;
+  color: #444;
+  /*background: url(../img/logo.png) left center no-repeat;*/
+  /*padding-left: 36px;*/
 }
 
 #header .brand em {
   font-style: normal;
   font-weight: bold;
-  color: #333;
 }
 
 #header .exit {
@@ -212,13 +217,25 @@ a.email:hover .summary {
   color : #888888;
 }
 
-.right {
-	float: right;
+/* Google colors */
+.g-red {
+  color: #d40f25;
 }
 
-.left {
-	float: left;
+.g-yellow {
+  color: #ebaf1f;
 }
+
+.g-green {
+  color: #009825;
+}
+
+.g-blue {
+  color: #3469e7;
+}
+
+
+
 
 footer {
   margin-top: 7px;
