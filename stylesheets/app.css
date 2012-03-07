@@ -19,13 +19,13 @@ body {
 
 #header .logo {
   float: left;
-  padding: 9px 0 0 0;
+  padding: 10px 2px 0 0;
 }
 
 #header .brand {
   float: left;
   margin: 10px 0 0 0;
-  font-size: 1.4em;
+  font-size: 1em;
   font-weight: normal;
   color: #444;
   /*background: url(../img/logo.png) left center no-repeat;*/
@@ -33,6 +33,7 @@ body {
 }
 
 #header .brand em {
+  font-size: 1.5em;
   font-style: normal;
   font-weight: bold;
 }
