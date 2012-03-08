@@ -86,22 +86,30 @@ App.EmailList = Backbone.View.extend({
 
 
 App.ControlBar = Backbone.View.extend({
-    el : '#control-bar',
+    el : '#header',
     events : {
-        'click #inboxBtn' : 'goToInbox',
-        'click #composeBtn' : 'goToComposition'
+        'click .exit' : 'close',
+        'click .inbox' : 'goToInbox',
+        'click .compose' : 'goToComposition',
+        'click .refresh' : 'refresh'
     },
 
     initialize : function() {},
 
+    close : function() {
+        App.Utilities.close();
+    },
+
     goToInbox : function() {
         this.options.navigator.openInbox();
-        // App.Utilities.navigator.newTab( App.Utilities.getGmailUrl() );
-        // App.Utilities.Closer.close();
     },
 
     goToComposition : function() {
         this.options.navigator.openComposition();
+    },
+
+    refresh : function() {
+        this.trigger('request:refresh');
     }
 });
 
@@ -110,24 +118,22 @@ App.ControlBar = Backbone.View.extend({
 
 App.Main = Backbone.View.extend({
     el : $('#gmailer'),
-    events : {
-        'click .exit' : 'close'
-    },
 
     initialize : function() {
         this.initializeAppObjects();
+        this.fetchData();
     },
 
     initializeAppObjects : function() {
         this.navigator = new App.config.navigator;
         this.emailCollection = new App.EmailCollection({ dataStore : App.data });
-        this.controlBar = new App.ControlBar({ navigator : this.navigator });
         this.emailList = new App.EmailList({ collection : this.emailCollection, navigator : this.navigator });
-        App.data.fetch( this.navigator.getFeedUrl() );
+        this.controlBar = new App.ControlBar({ navigator : this.navigator });
+        this.controlBar.bind('request:refresh', this.fetchData, this);
     },
 
-    close : function() {
-        App.Utilities.close();
+    fetchData : function() {
+        App.data.fetch( this.navigator.getFeedUrl() );
     }
 });
 

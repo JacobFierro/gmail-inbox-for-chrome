@@ -13,7 +13,7 @@ body {
 #header {
   background: url(../img/grey_texture.png);
   text-shadow: 1px 1px 1px #fff;
-  border-bottom: 3px solid #555;
+  border-bottom: 3px solid #222;
   padding: 0 0 0 15px;
 }
 
@@ -38,14 +38,14 @@ body {
   font-weight: bold;
 }
 
-#header .exit {
+#header .box {
   position: relative;
   float: right;
   height: 40px;
   width: 40px;
 }
 
-#header .exit:before {
+#header .box:before {
   content: "";
   display: block;
   width: 1px;
@@ -54,14 +54,34 @@ body {
   border-right: 1px solid rgba(255,255,255,0.7);
 }
 
-#header .exit span {
+#header .box span {
   position: absolute;
   top: 13px;
   left: 15px;
 }
 
-#header .exit:hover {
+#header .box:hover {
   background-color: rgba(75,75,75,0.1);
+}
+
+ul.nav {
+  background: #999;
+  color: #222;
+  text-shadow: 1px 1px 1px rgba(200,200,200,0.8);
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+ul.nav li {
+  float: left;
+  display: block;
+  padding: 3px 0;
+  width: 33.33%;
+}
+
+ul.nav li:hover {
+  background-color: #888;
 }
 
 
