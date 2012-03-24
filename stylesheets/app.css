@@ -13,7 +13,7 @@ body {
 #header {
   background: url(../img/grey_texture.png);
   text-shadow: 1px 1px 1px #fff;
-  border-bottom: 3px solid #222;
+  border-bottom: 1px solid #999;
   padding: 0 0 0 15px;
 }
 
@@ -61,7 +61,23 @@ body {
 }
 
 #header .box:hover {
-  background-color: rgba(75,75,75,0.1);
+  background-color: rgba(255,255,255,0.3);
+}
+
+#header .compose:hover .icon-pencil {
+  background-position: 0 -143px;
+}
+
+#header .refresh:hover .icon-refresh {
+  background-position: -240px -143px;
+}
+
+#header .inbox:hover .icon-inbox {
+  background-position: -168px -143px;
+}
+
+#header .exit:hover .icon-remove {
+  background-position: -312px -144px;
 }
 
 ul.nav {
@@ -80,9 +96,13 @@ ul.nav li {
   width: 33.33%;
 }
 
-ul.nav li:hover {
-  background-color: #888;
+#count {
+  text-align: center;
+  padding: 3px;
+  font-size: 0.8em;
+  display: block;
 }
+
 
 
 

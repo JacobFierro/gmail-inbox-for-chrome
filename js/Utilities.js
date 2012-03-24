@@ -34,11 +34,16 @@ App.dataStore = function() {
             dataType : "xml",
             success : function(data, textStatus, jQxhr) {
                 var json = $.xmlToJSON(data);
-                data = json;
-                emails = parseEmailData(json.entry);
-                count = json.entry.length
+                console.log('*success json: ', json , self);//, JSON.stringify(json));
+
+                if (json.fullcount[0].Text !== '0') {
+                    emails = parseEmailData(json.entry);
+                    count = json.entry.length
+                } else {
+                    count = 0;
+                }
+
                 self.trigger('reset');
-                // console.log('*success json: ', json , self);//, JSON.stringify(json));
             },
             error : function(jqXHR, textStatus, errorThrown) {
                 console.log('*error: ', jqXHR, textStatus, errorThrown);
@@ -66,7 +71,7 @@ App.dataStore = function() {
 
     return {
         fetch : function(url) {
-        	console.log('fetch from: ', url);
+        	// console.log('fetch from: ', url);
             fetchData(url);
         },
         getEmails : function() {

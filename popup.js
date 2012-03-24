@@ -22,12 +22,12 @@ App.EmailCollection = Backbone.Collection.extend({
 
     initialize : function(options) {
         this.options = options;
-        console.log('*collection: ', this);
         this.options.dataStore.bind('reset', this.resetModels, this);
     },
 
     resetModels : function() {
-        var emails = this.options.dataStore.getEmails();
+        var data = this.options.dataStore;
+        var emails = (data.getCount() > 0) ? data.getEmails() : null;
         this.reset(emails);
     }
 });
@@ -54,22 +54,52 @@ App.EmailRow = Backbone.View.extend({
      
 });
 
+App.EmailCount = Backbone.View.extend({
+    template : _.template( $('#count-template').html() ),
+
+    render : function(total) {
+        $(this.el).html( this.template({ 'total' : total }) );
+        return this;
+    }
+});
+
 App.EmailList = Backbone.View.extend({
     el : '#emails',
     
     initialize : function() {
         this.collection.bind('reset', this.render, this);
+        this.emailCount = new App.EmailCount;
     },
 
     render : function() {
         $(this.el).html('');
-        this.collection.each(function(model){
+
+        console.log('*collection: ', this.collection);
+
+        if ( this.collection.length > 0 ) {
+            this.renderEmails();
+            this.handleOverflow();
+        } else {
+            this.renderNoEmails();
+        }
+    },
+
+    renderEmails : function() {
+        this.collection.each(function(model, i){
             var view = new App.EmailRow({ model : model });
             view.bind('navigation', this.navigateToEmail, this);
             $(this.el).append(view.render().el);
         }.bind(this));
 
-        this.handleOverflow();
+        this.renderCount();
+    },
+
+    renderNoEmails : function() {
+        $(this.el).html('No New Emails');
+    },
+
+    renderCount : function() {
+        $(this.el).append( this.emailCount.render(this.collection.length).el );
     },
 
     handleOverflow : function() {
@@ -82,6 +112,7 @@ App.EmailList = Backbone.View.extend({
         this.options.navigator.openEmail(url);
     }
 });
+
 
 
 
@@ -127,7 +158,7 @@ App.Main = Backbone.View.extend({
     initializeAppObjects : function() {
         this.navigator = new App.config.navigator;
         this.emailCollection = new App.EmailCollection({ dataStore : App.data });
-        this.emailList = new App.EmailList({ collection : this.emailCollection, navigator : this.navigator });
+        this.emailList = new App.EmailList({ collection : this.emailCollection, navigator : this.navigator }); 
         this.controlBar = new App.ControlBar({ navigator : this.navigator });
         this.controlBar.bind('request:refresh', this.fetchData, this);
     },
@@ -144,7 +175,10 @@ App.config = {
         'default' : 'mm'
     },
     navigator : App.Navigator,
-    overflowHandler : App.Utilities.overflowHandler.enableLionbars
+    overflowHandler : App.Utilities.overflowHandler.enableLionbars,
+    count : {
+        el : '#count'
+    }
 }
 
 
